@@ -20,7 +20,7 @@ echo "127.0.0.1    localhost
 127.0.1.1    $mName
 
 $wIP    $wName" > /etc/hosts
-sleep1
+sleep 1
 
 
 echo "Activando el IP forwarding..."
