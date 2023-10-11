@@ -2,11 +2,11 @@
 
 wIP=$(hostname -I)
 
-echo "Nombre del host"
+echo -n "Nombre del host: "
 read wName
-echo "IP y nombre del nodo master (Internet)"
+echo -n "IP y nombre del nodo master (Internet): "
 read mNameI mIPI
-echo "IP y nombre del nodo master (Middle)"
+echo -n "IP y nombre del nodo master (Middle): "
 read mName mIP
 
 
@@ -36,14 +36,15 @@ iface ens3 inet static
   gateway $mIP
 
 source /etc/network/interfaces.d/*.cfg" > /etc/network/interfaces
+sleep 1
 
 
 echo "Reiniciando el servicio de red..."
 systemctl restart networking
 
 
-echo "Creando un usuario..."
-echo "Nombre:"
+echo "Creando un nuevo usuario..."
+echo -n "Nombre: "
 read newUser
 
 adduser $newUser

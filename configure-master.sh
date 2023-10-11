@@ -2,11 +2,12 @@
 
 mIP=$(hostname -I | awk '{print $2}')
 mIPI=$(hostname -I | awk '{print $1}')
-user=$(whoami)
 
-echo "Nombre del host"
+echo -n "Nombre del user actual: "
+read user
+echo -n "Nombre del host: "
 read mName
-echo "IP y nombre del nodo worker"
+echo -n "IP y nombre del nodo worker: "
 read wIP wName
 sleep 1
 
@@ -39,14 +40,15 @@ sleep 1
 
 echo "Haciendo efectivo el IP forwarding..."
 echo 1 > /proc/sys/net/ipv4/ip_forward
+sleep 1
 
 
 echo "Reiniciando el servicio de red..."
 systemctl restart networking
 
 
-echo "Creando un usuario..."
-echo "Nombre:"
+echo "Creando un nuevo usuario..."
+echo -n "Nombre: "
 read newUser
 
 adduser $newUser
