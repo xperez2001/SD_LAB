@@ -20,7 +20,7 @@ echo "127.0.0.1    localhost
 127.0.1.1    $wName
 
 $mNameI    $mIPI
-$mName    $mIP" > etc/hosts
+$mName    $mIP" > /etc/hosts
 sleep 1
 
 
@@ -35,7 +35,7 @@ iface ens3 inet static
   netmask 255.255.254.0
   gateway $mIP
 
-source /etc/network/interfaces.d/*.cfg" > etc/network/interfaces
+source /etc/network/interfaces.d/*.cfg" > /etc/network/interfaces
 
 
 echo "Reiniciando el servicio de red..."

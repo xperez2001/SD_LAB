@@ -19,7 +19,7 @@ echo "Actualizando la tabla de hosts..."
 echo "127.0.0.1    localhost
 127.0.1.1    $mName
 
-$wIP    $wName" > etc/hosts
+$wIP    $wName" > /etc/hosts
 sleep1
 
 
