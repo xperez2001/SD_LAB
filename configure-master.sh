@@ -58,4 +58,4 @@ sleep 1
 
 
 echo "Enviando el fichero de configuració al nodo worker..."
-scp configure-worker.sh adminp@$wname:/home/adminp/
+scp configure-worker.sh adminuser@$wName:/home/adminuser/
