@@ -47,7 +47,7 @@ systemctl restart networking
 
 echo "Creando un usuario..."
 echo "Nombre:"
-read $newUser
+read newUser
 
 adduser $newUser
 sleep 1
