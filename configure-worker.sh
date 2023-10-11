@@ -45,10 +45,10 @@ systemctl restart networking
 echo "Creando un usuario..."
 echo "Nombre:"
 
-adduser $user
+adduser $newUser
 sleep 1
 
 
 echo "Editando los permisos del usuario..."
-echo "ALL=(ALL:ALL) ALL" >> /etc/sudoers
+echo "$newUser ALL=(ALL:ALL) ALL" >> /etc/sudoers
 sleep 1

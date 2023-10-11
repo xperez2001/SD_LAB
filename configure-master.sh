@@ -2,6 +2,7 @@
 
 mIP=$(hostname -I | awk '{print $2}')
 mIPI=$(hostname -I | awk '{print $1}')
+user=$(whoami)
 
 echo "Nombre del host"
 read mName
@@ -48,14 +49,14 @@ echo "Creando un usuario..."
 echo "Nombre:"
 read user
 
-adduser $user
+adduser $newUser
 sleep 1
 
 
 echo "Editando los permisos del usuario..."
-echo "$user ALL=(ALL:ALL) ALL" >> /etc/sudoers
+echo "$newUser ALL=(ALL:ALL) ALL" >> /etc/sudoers
 sleep 1
 
 
 echo "Enviando el fichero de configuració al nodo worker..."
-scp configure-worker.sh adminuser@$wName:/home/adminuser/
+scp configure-worker.sh $user@$wName:/home/$user/
