@@ -46,11 +46,16 @@ systemctl restart networking
 
 echo "Creando un usuario..."
 echo "Nombre:"
+read user
 
 adduser $user
 sleep 1
 
 
 echo "Editando los permisos del usuario..."
-echo "ALL=(ALL:ALL) ALL" >> /etc/sudoers
+echo "$user ALL=(ALL:ALL) ALL" >> /etc/sudoers
 sleep 1
+
+
+echo "Enviando el fichero de configuració al nodo worker..."
+scp configure-worker.sh adminp@$wname:/home/adminp/
