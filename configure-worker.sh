@@ -38,3 +38,5 @@ iface ens3 inet static
 source /etc/network/interfaces.d/*.cfg" > etc/network/interfaces
 
 
+echo "Reiniciando el servicio de red..."
+systemctl restart networking

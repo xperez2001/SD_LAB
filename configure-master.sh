@@ -38,3 +38,7 @@ sleep 1
 
 echo "Haciendo efectivo el IP forwarding..."
 echo 1 > /proc/sys/net/ipv4/ip_forward
+
+
+echo "Reiniciando el servicio de red..."
+systemctl restart networking
