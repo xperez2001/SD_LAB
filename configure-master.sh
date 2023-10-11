@@ -42,3 +42,15 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 
 echo "Reiniciando el servicio de red..."
 systemctl restart networking
+
+
+echo "Creando un usuario..."
+echo "Nombre:"
+
+adduser $user
+sleep 1
+
+
+echo "Editando los permisos del usuario..."
+echo "ALL=(ALL:ALL) ALL" >> /etc/sudoers
+sleep 1
