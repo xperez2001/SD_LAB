@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#Para verificar que se ejecuta como super user
+if [[ $EUID -ne 0 ]]; then
+   echo "error: no puede realizar esta operación, a menos que sea superusuario." 
+   exit 1
+fi
+
 mIP=$(hostname -I | awk '{print $2}')
 mIPI=$(hostname -I | awk '{print $1}')
 
