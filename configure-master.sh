@@ -9,8 +9,6 @@ fi
 mIP=$(hostname -I | awk '{print $2}')
 mIPI=$(hostname -I | awk '{print $1}')
 
-echo -n "Nombre del user actual: "
-read user
 echo -n "Nombre del host: "
 read mName
 echo -n "IP y nombre del nodo worker: "
@@ -67,4 +65,4 @@ sleep 1
 
 
 echo "Enviando el fichero de configuració al nodo worker..."
-scp configure-worker.sh $user@$wName:/home/$user/
+scp configure-worker.sh adminuser@$wName:/home/adminuser/
