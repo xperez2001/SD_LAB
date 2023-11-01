@@ -6,15 +6,16 @@
 /*
  * SD-LAB-2
  *
- * NIU ALUMNO 1: 1566276
- * NIU ALUMNO 2: 1571619
+ * NIU ALUMNO 1: XXXXXXXXX
+ * NIU ALUMNO 2: XXXXXXXXX
  *
  */
 int main (int argc, char *argv[]) {
 	CLIENT *cl;
 	char *server;
 	long *lresult;
-	long *diff_result;
+	long *difftime;
+	long *localtime = malloc(sizeof(long));
 	char **sresult;
 
 	if (argc != 2) {
@@ -41,15 +42,18 @@ int main (int argc, char *argv[]) {
 	}
 
 	printf("Fecha y hora sobre el host (humano) %s = %s\n", server, *sresult);
-	
 
-	if ((diff_result = diff_time_1(time((long *)0), cl)) == NULL) {
+	*localtime = time((long *)0);
+	
+	if ((difftime = diff_time_1(localtime, cl)) == NULL)  {
 		clnt_perror(cl, server);
 		exit(5);
 	}
 
-	printf("Diferencia entre el reloj del servidor y el local = %ld\n", *diff_result);
+	printf("Diferencia entre el reloj del servidor y el reloj local = %ld\n", *difftime);
 
+
+	free(localtime);
 	clnt_destroy(cl);
 
 	return(0);

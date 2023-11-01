@@ -21,8 +21,9 @@ char **str_date_1_svc(long *bintime, struct svc_req *arg2) {
     return(&ptr);
 }
 
-long *diff_time_1_svc(long *localdate, struct svc_req *arg2) {
-    static long timevalue;
-    timevalue = time((long *)0) - *localdate;
-    return(&timevalue);
+long *diff_time_1_svc(long *localtime, struct svc_req *arg2) {
+    static long remotetime, difftime;
+    remotetime = time((long *)0);
+    difftime = remotetime + 5 - *localtime;
+    return(&difftime);
 }
