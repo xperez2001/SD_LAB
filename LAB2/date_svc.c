@@ -22,6 +22,7 @@ date_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 	union {
 		long str_date_1_arg;
 		long diff_time_1_arg;
+		struct struct_pair mult_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -48,6 +49,12 @@ date_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_argument = (xdrproc_t) xdr_long;
 		_xdr_result = (xdrproc_t) xdr_long;
 		local = (char *(*)(char *, struct svc_req *)) diff_time_1_svc;
+		break;
+
+	case MULT:
+		_xdr_argument = (xdrproc_t) xdr_struct_pair;
+		_xdr_result = (xdrproc_t) xdr_float;
+		local = (char *(*)(char *, struct svc_req *)) mult_1_svc;
 		break;
 
 	default:

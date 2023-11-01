@@ -5,7 +5,7 @@
 /*
  * SD-LAB-2
  *
- * NIU ALUMNO 1: XXXXXXXXX
+ * NIU ALUMNO 1: 1566276
  * NIU ALUMNO 2: XXXXXXXXX
  *
  */
@@ -26,4 +26,10 @@ long *diff_time_1_svc(long *localtime, struct svc_req *arg2) {
     remotetime = time((long *)0);
     difftime = remotetime + 5 - *localtime;
     return(&difftime);
+}
+
+float *mult_1_svc(struct struct_pair *v, struct svc_req *arg2) {
+    static float mult;
+    mult = (float)v->a*v->b;
+    return(&mult);
 }

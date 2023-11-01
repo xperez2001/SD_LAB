@@ -53,3 +53,18 @@ diff_time_1(long *argp, CLIENT *clnt)
 	}
 	return (&clnt_res);
 }
+
+float *
+mult_1(struct struct_pair *argp, CLIENT *clnt)
+{
+	static float clnt_res;
+
+	memset((char *)&clnt_res, 0, sizeof(clnt_res));
+	if (clnt_call (clnt, MULT,
+		(xdrproc_t) xdr_struct_pair, (caddr_t) argp,
+		(xdrproc_t) xdr_float, (caddr_t) &clnt_res,
+		TIMEOUT) != RPC_SUCCESS) {
+		return (NULL);
+	}
+	return (&clnt_res);
+}

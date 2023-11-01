@@ -6,7 +6,7 @@
 /*
  * SD-LAB-2
  *
- * NIU ALUMNO 1: XXXXXXXXX
+ * NIU ALUMNO 1: 1566276
  * NIU ALUMNO 2: XXXXXXXXX
  *
  */
@@ -14,9 +14,11 @@ int main (int argc, char *argv[]) {
 	CLIENT *cl;
 	char *server;
 	long *lresult;
+	char **sresult;
 	long *difftime;
 	long *localtime = malloc(sizeof(long));
-	char **sresult;
+	struct struct_pair *v = malloc(sizeof(struct struct_pair));
+	float *mult;
 
 	if (argc != 2) {
 		fprintf(stderr, "Error de uso al llamar al programa: %s hostname\nPor ejemplo: ./rdate master\n", argv[0]);
@@ -49,11 +51,21 @@ int main (int argc, char *argv[]) {
 		clnt_perror(cl, server);
 		exit(5);
 	}
+	free(localtime);
 
 	printf("Diferencia entre el reloj del servidor y el reloj local = %ld\n", *difftime);
 
+	v->a = 5;
+	v->b = 7;
 
-	free(localtime);
+	if ((mult = mult_1(v, cl)) == NULL) {
+		clnt_perror(cl, server);
+		exit(6);	
+	}
+
+	printf("Resultado de la multiplicacion de %dx%d = %f", v->a, v->b, *mult);
+	free(v);
+
 	clnt_destroy(cl);
 
 	return(0);

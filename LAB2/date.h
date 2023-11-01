@@ -14,6 +14,12 @@ extern "C" {
 #endif
 
 
+struct struct_pair {
+	int a;
+	int b;
+};
+typedef struct struct_pair struct_pair;
+
 #define DATE_PROG 111222333
 #define DATE_VERS 1
 
@@ -27,6 +33,9 @@ extern  char ** str_date_1_svc(long *, struct svc_req *);
 #define DIFF_TIME 3
 extern  long * diff_time_1(long *, CLIENT *);
 extern  long * diff_time_1_svc(long *, struct svc_req *);
+#define MULT 4
+extern  float * mult_1(struct struct_pair *, CLIENT *);
+extern  float * mult_1_svc(struct struct_pair *, struct svc_req *);
 extern int date_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
@@ -39,7 +48,20 @@ extern  char ** str_date_1_svc();
 #define DIFF_TIME 3
 extern  long * diff_time_1();
 extern  long * diff_time_1_svc();
+#define MULT 4
+extern  float * mult_1();
+extern  float * mult_1_svc();
 extern int date_prog_1_freeresult ();
+#endif /* K&R C */
+
+/* the xdr functions */
+
+#if defined(__STDC__) || defined(__cplusplus)
+extern  bool_t xdr_struct_pair (XDR *, struct_pair*);
+
+#else /* K&R C */
+extern bool_t xdr_struct_pair ();
+
 #endif /* K&R C */
 
 #ifdef __cplusplus
