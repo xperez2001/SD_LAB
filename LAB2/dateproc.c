@@ -6,9 +6,9 @@
  * SD-LAB-2
  *
  * NIU ALUMNO 1: 1566276
- * NIU ALUMNO 2: XXXXXXXXX
- *
+ * NIU ALUMNO 2: 1571619
  */
+
 long *bin_date_1_svc(void* arg1, struct svc_req *arg2) {
     static long timevalue;
     timevalue = time((long *)0);

@@ -7,9 +7,10 @@
  * SD-LAB-2
  *
  * NIU ALUMNO 1: 1566276
- * NIU ALUMNO 2: XXXXXXXXX
+ * NIU ALUMNO 2: 1571619
  *
  */
+
 int main (int argc, char *argv[]) {
 	CLIENT *cl;
 	char *server;
