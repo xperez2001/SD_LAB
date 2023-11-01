@@ -30,12 +30,6 @@ extern  long * bin_date_1_svc(void *, struct svc_req *);
 #define STR_DATE 2
 extern  char ** str_date_1(long *, CLIENT *);
 extern  char ** str_date_1_svc(long *, struct svc_req *);
-#define DIFF_TIME 3
-extern  long * diff_time_1(long *, CLIENT *);
-extern  long * diff_time_1_svc(long *, struct svc_req *);
-#define MULT 4
-extern  float * mult_1(struct struct_pair *, CLIENT *);
-extern  float * mult_1_svc(struct struct_pair *, struct svc_req *);
 extern int date_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
@@ -45,13 +39,29 @@ extern  long * bin_date_1_svc();
 #define STR_DATE 2
 extern  char ** str_date_1();
 extern  char ** str_date_1_svc();
-#define DIFF_TIME 3
+extern int date_prog_1_freeresult ();
+#endif /* K&R C */
+
+#define NEW_PROG 123456789
+#define NEW_VERS 1
+
+#if defined(__STDC__) || defined(__cplusplus)
+#define DIFF_TIME 1
+extern  long * diff_time_1(long *, CLIENT *);
+extern  long * diff_time_1_svc(long *, struct svc_req *);
+#define MULT 2
+extern  float * mult_1(struct struct_pair *, CLIENT *);
+extern  float * mult_1_svc(struct struct_pair *, struct svc_req *);
+extern int new_prog_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
+
+#else /* K&R C */
+#define DIFF_TIME 1
 extern  long * diff_time_1();
 extern  long * diff_time_1_svc();
-#define MULT 4
+#define MULT 2
 extern  float * mult_1();
 extern  float * mult_1_svc();
-extern int date_prog_1_freeresult ();
+extern int new_prog_1_freeresult ();
 #endif /* K&R C */
 
 /* the xdr functions */

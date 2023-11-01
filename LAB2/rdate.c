@@ -15,6 +15,8 @@ int main (int argc, char *argv[]) {
 	char *server;
 	long *lresult;
 	char **sresult;
+
+	CLIENT *newcl;
 	long *difftime;
 	long *localtime = malloc(sizeof(long));
 	struct struct_pair *v = malloc(sizeof(struct struct_pair));
@@ -45,10 +47,18 @@ int main (int argc, char *argv[]) {
 
 	printf("Fecha y hora sobre el host (humano) %s = %s\n", server, *sresult);
 
+
+	
+	if ((newcl = clnt_create(server, NEW_PROG, NEW_VERS, "udp")) == NULL) {
+		clnt_pcreateerror(server);
+		exit(2);
+	}
+
+
 	*localtime = time((long *)0);
 	
-	if ((difftime = diff_time_1(localtime, cl)) == NULL)  {
-		clnt_perror(cl, server);
+	if ((difftime = diff_time_1(localtime,newcl)) == NULL)  {
+		clnt_perror(newcl, server);
 		exit(5);
 	}
 	free(localtime);
@@ -58,15 +68,16 @@ int main (int argc, char *argv[]) {
 	v->a = 5;
 	v->b = 7;
 
-	if ((mult = mult_1(v, cl)) == NULL) {
-		clnt_perror(cl, server);
+	if ((mult = mult_1(v, newcl)) == NULL) {
+		clnt_perror(newcl, server);
 		exit(6);	
 	}
 
-	printf("Resultado de la multiplicacion de %dx%d = %f", v->a, v->b, *mult);
+	printf("Resultado de la multiplicacion de %dx%d = %.2f\n", v->a, v->b, *mult);
 	free(v);
 
 	clnt_destroy(cl);
+	clnt_destroy(newcl);
 
 	return(0);
 }

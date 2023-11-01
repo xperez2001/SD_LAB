@@ -21,8 +21,6 @@ date_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
 		long str_date_1_arg;
-		long diff_time_1_arg;
-		struct struct_pair mult_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -44,6 +42,42 @@ date_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_result = (xdrproc_t) xdr_wrapstring;
 		local = (char *(*)(char *, struct svc_req *)) str_date_1_svc;
 		break;
+
+	default:
+		svcerr_noproc (transp);
+		return;
+	}
+	memset ((char *)&argument, 0, sizeof (argument));
+	if (!svc_getargs (transp, (xdrproc_t) _xdr_argument, (caddr_t) &argument)) {
+		svcerr_decode (transp);
+		return;
+	}
+	result = (*local)((char *)&argument, rqstp);
+	if (result != NULL && !svc_sendreply(transp, (xdrproc_t) _xdr_result, result)) {
+		svcerr_systemerr (transp);
+	}
+	if (!svc_freeargs (transp, (xdrproc_t) _xdr_argument, (caddr_t) &argument)) {
+		fprintf (stderr, "%s", "unable to free arguments");
+		exit (1);
+	}
+	return;
+}
+
+static void
+new_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
+{
+	union {
+		long diff_time_1_arg;
+		struct struct_pair mult_1_arg;
+	} argument;
+	char *result;
+	xdrproc_t _xdr_argument, _xdr_result;
+	char *(*local)(char *, struct svc_req *);
+
+	switch (rqstp->rq_proc) {
+	case NULLPROC:
+		(void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
+		return;
 
 	case DIFF_TIME:
 		_xdr_argument = (xdrproc_t) xdr_long;
@@ -83,6 +117,7 @@ main (int argc, char **argv)
 	register SVCXPRT *transp;
 
 	pmap_unset (DATE_PROG, DATE_VERS);
+	pmap_unset (NEW_PROG, NEW_VERS);
 
 	transp = svcudp_create(RPC_ANYSOCK);
 	if (transp == NULL) {
@@ -93,6 +128,10 @@ main (int argc, char **argv)
 		fprintf (stderr, "%s", "unable to register (DATE_PROG, DATE_VERS, udp).");
 		exit(1);
 	}
+	if (!svc_register(transp, NEW_PROG, NEW_VERS, new_prog_1, IPPROTO_UDP)) {
+		fprintf (stderr, "%s", "unable to register (NEW_PROG, NEW_VERS, udp).");
+		exit(1);
+	}
 
 	transp = svctcp_create(RPC_ANYSOCK, 0, 0);
 	if (transp == NULL) {
@@ -101,6 +140,10 @@ main (int argc, char **argv)
 	}
 	if (!svc_register(transp, DATE_PROG, DATE_VERS, date_prog_1, IPPROTO_TCP)) {
 		fprintf (stderr, "%s", "unable to register (DATE_PROG, DATE_VERS, tcp).");
+		exit(1);
+	}
+	if (!svc_register(transp, NEW_PROG, NEW_VERS, new_prog_1, IPPROTO_TCP)) {
+		fprintf (stderr, "%s", "unable to register (NEW_PROG, NEW_VERS, tcp).");
 		exit(1);
 	}
 
