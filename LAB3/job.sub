@@ -3,7 +3,7 @@
 #SBATCH --output=output_lab3.txt
 #SBATCH --error=error_lab3.txt
 #SBATCH --nodes=2		# Indica la cantidad de nodos
-##SBATCH --nodelist=worker2	# Selecciona el nodo. Quitar cuando se envie a los dos
+##SBATCH --nodelist=worker2
 
 gcc lab3.c -o lab3.exe
 
